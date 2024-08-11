@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
 }
 .welcome {
     background-image: url(assets/mempelai1.jpg);
-}
+} 
 
 .sec1 {
     text-shadow: 2px 2px black;
@@ -247,6 +247,9 @@
                 </div>
             </section>
         <!-- {{-- END SECTION 5 --}} -->
+        <!-- SECTION TRIGER -->
+            <!-- <section id="triger"></section> -->
+        <!-- END SECTION TRIGER -->
 <!-- {{-- NAVBAR --}} -->
     <nav class=" rounded-lg px-3 py-2 bg-white/35 border-2 border-white backdrop-blur-sm fixed bottom-5 right-5 left-5 font-semibold font-work text-sm z-20 drop-shadow-lg">
         <div class="flex justify-between text-xl items-center text-black/50 leading-none">
@@ -263,13 +266,13 @@
                 <a href="#galery"><i class="fa-regular fa-image"></i></a>
             </div>
             <div>
-                <a href="#"><i class="fa-regular fa-circle-down"></i></a>
+                <button id="toggleScroll"><i class="fa-regular fa-circle-down"></i></button>
             </div>
             <div id="pembungkusAudio" class="flex justify-center items-center">
                 <audio id="song" autoplay loop>
                     <source src="assets/audio/music.mp3" type="audio/mp3">
                 </audio>
-                <a href="#"><i id="disc" class="disc fa-regular fa-circle-pause"></i></a>
+                <button><i id="disc" class="disc fa-regular fa-circle-pause"></i></button>
                 <i class=""></i>
             </div>
 
@@ -294,11 +297,11 @@
                 <div class="flex flex-col text-center text-white px-3 gap-5">
                     <div class="font-semibold">
                         <p class="font-light">Kepada Bpk/Ibu/Saudara/i</p>
-                        <p class="py-1 font-cinzel">Mohamad Aswad Supu</p>
+                        <p class="nama py-1 font-cinzel"><span></span></p>
                         <p class="font-light">Bersama</p>
-                        <p class="font-cinzel">Partner</p>
+                        <p class="bersama font-cinzel"><span></span></p>
                     </div>
-                    <a href="#" id="hideButton" class="mx-auto"><span class="p-2 hover:bg-black/50 font-semibold border hover:text-white text-white transition-all rounded-md text-black/50 shadow-md">Buka Undangan</span></a>
+                    <button  id="hideButton" class="mx-auto"><span class="p-2 hover:bg-black/50 font-semibold border hover:text-white text-white transition-all rounded-md text-black/50 shadow-md">Buka Undangan</span></button>
                     <p class="text-xs">Mohon maaf apabila ada kesalahan nama dan gelar</p>
                 </div>    
             </div>
@@ -307,6 +310,45 @@
 <!-- {{-- END COVER HALAMAN UNDANGAN --}} -->
 
 <!-- {{-- JAVA SCRIPT --}} -->
+    <!-- AUTOSCROLL -->
+        <script>
+            // Memastikan halaman mulai dari atas saat dimuat ulang
+            if (history.scrollRestoration) {
+                history.scrollRestoration = 'manual'; // Nonaktifkan pemulihan posisi scroll otomatis
+            }
+            window.scrollTo(0, 0); // Paksa scroll ke atas saat halaman dimuat
+
+            // Kecepatan scroll (pixel per interval)
+            const scrollSpeed = 10;
+            let scrollInterval;
+            let isScrolling = true;
+
+            // Fungsi untuk auto scroll
+            function autoScroll() {
+                window.scrollBy(0, scrollSpeed);
+
+                // Mengecek apakah sudah mencapai bagian bawah halaman
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    clearInterval(scrollInterval);
+                    document.getElementById('toggleScroll').disabled = true; // Disable tombol jika sudah di bagian bawah
+                }
+            }
+
+            // Memulai auto scroll
+            scrollInterval = setInterval(autoScroll, 10);
+
+            // Tombol untuk menghentikan atau melanjutkan scroll
+            const toggleScrollButton = document.getElementById('toggleScroll');
+            toggleScrollButton.addEventListener('click', function() {
+                if (isScrolling) {
+                    clearInterval(scrollInterval); // Hentikan scroll
+                } else {
+                    scrollInterval = setInterval(autoScroll, 10); // Lanjutkan scroll
+                }
+                isScrolling = !isScrolling;
+            });
+        </script>
+     <!-- END AUTOSCROLL -->
 
     <!-- {{-- WAKTU PERNIKAHAN --}} -->
         <script>
@@ -343,45 +385,63 @@
     <!-- {{-- END WAKTU PERNIKAHAN --}} -->
 
     <!-- {{-- DISABLESCROLL COVER --}} -->
-    <script>
-        // function playAudio{
-        //     const song = document.querySelector('#song');
-        //     song.volume = 0.1
-        //     song.play();
-        //  }
-        const container = document.getElementById('myContainer');
-        const disc = document.getElementById('disc')
-        const icon = document.querySelector('#pembungkusAudio i')
-        let play = false;
+        <script>
+            // function playAudio{
+            //     const song = document.querySelector('#song');
+            //     song.volume = 0.1
+            //     song.play();
+            //  }
+            const container = document.getElementById('myContainer');
+            const disc = document.getElementById('disc')
+            const icon = document.querySelector('#pembungkusAudio i')
+            let play = false;
 
-        document.getElementById('hideButton').addEventListener('click', function() { 
-            // Menambahkan kelas animasi
-            container.classList.add('fade-out');
-            song.play();
-            play = true
-            song.volume = 0.1;
-            // Menunggu animasi selesai sebelum menghilangkan kontainer dari tampilan
-            setTimeout(() => {
-                container.style.display = 'none';
-            }, 500); // Durasi 0.5 detik sesuai dengan durasi animasi
-         });
-
-         disc.onclick = function() {
-            if (play) {
-                song.pause();
-                icon.classList.remove('fa-circle-play')
-                icon.classList.add('fa-circle-pause')
-            } else {
+            document.getElementById('hideButton').addEventListener('click', function() { 
+                // Menambahkan kelas animasi
+                if (history.scrollRestoration) {
+                    history.scrollRestoration = 'manual'; // Nonaktifkan pemulihan posisi scroll otomatis
+                }
+                window.scrollTo(0, 0);
+                container.classList.add('fade-out');
                 song.play();
-                icon.classList.remove('fa-circle-pause')
-                icon.classList.add('fa-circle-play')
+                play = true
+                song.volume = 0.1;
+                // Menunggu animasi selesai sebelum menghilangkan kontainer dari tampilan
+                setTimeout(() => {
+                    container.style.display = 'none';
+                }, 500); // Durasi 0.5 detik sesuai dengan durasi animasi
+            });
+
+            disc.onclick = function() {
+                if (play) {
+                    song.pause();
+                    icon.classList.remove('fa-circle-play')
+                    icon.classList.add('fa-circle-pause')
+                } else {
+                    song.play();
+                    icon.classList.remove('fa-circle-pause')
+                    icon.classList.add('fa-circle-play')
+                }
+
+                play = !play;
             }
 
-            play = !play;
-         }
-
-    </script>
+        </script>
     <!-- {{-- END DISABLESCROLL COVER --}} -->
+    <!-- NAMA PENGUNJUNG -->
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const nama = urlParams.get('n') || 'Hamba Allah';
+            const bersama = urlParams.get('b') || 'Hamba Allah Lainnya';
+
+            const isiNama = document.querySelector('.nama span');
+            const isiBersama = document.querySelector('.bersama span');
+
+            // Mengisi teks dalam span dengan nilai dari parameter URL
+            isiNama.innerText = nama.replace(/,$/, '');
+            isiBersama.innerText = bersama.replace(/,$/, '');
+        </script>
+     <!-- END NAMA PENGUNJUNG -->
 <!-- {{-- END JAVA SCRIPT --}} -->
 </body>
 </html>

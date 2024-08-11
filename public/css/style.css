@@ -64,8 +64,6 @@ html,
   /* 7 */
 }
 
-
-
 /*
 1. Remove the margin in all browsers.
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
@@ -806,6 +804,10 @@ video {
   overflow: hidden;
 }
 
+.scroll-smooth{
+  scroll-behavior: smooth;
+}
+
 .rounded-lg{
   border-radius: 0.5rem;
 }
@@ -1122,12 +1124,6 @@ video {
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.transition-all{
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .transition{
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -1136,111 +1132,14 @@ video {
   transition-duration: 150ms;
 }
 
+.transition-all{
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .ease-out{
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-}
-
-.d-none{
-  display: none;
-}
-
-.welcome {
-  background-image: url(../../public/assets/mempelai1.jpg);
-}
-
-.sec1 {
-  text-shadow: 2px 2px black;
-}
-
-.section2{
-  background-image: url(../../public/assets/mempelai1.jpg);
-  background-position: center;
-  background-size: cover;
-}
-
-.wanita {
-  background-image: url(../../public/assets/wanita2.jpeg);
-  background-position: center;
-  background-size: cover;
-}
-
-.pria {
-  background-image: url(../../public/assets/pria2.jpeg);
-  background-position: center;
-  background-size: cover;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-
-.fade-out {
-  animation: fadeOut 0.5s ease-out forwards;
-}
-
-.slide {
-  background-image: url(../../public/assets/mempelai1.jpg);
-  background-repeat: no-repeat;
-  transition: 1s;
-  animation-name: slideshow;
-  animation-direction: alternate-reverse;
-  animation-play-state: running;
-  animation-timing-function: ease-out;
-  animation-duration: 20s;
-  animation-fill-mode: backwards;
-  animation-iteration-count: infinite;
-}
-
-@keyframes slideshow {
-  0%{
-    background-image: url(../../public/assets/mempelai2.jpeg);
-  }
-
-  20%{
-    background-image: url(../../public/assets/mempelai3.jpeg);
-  }
-
-  40%{
-    background-image: url(../../public/assets/mempelai4.jpeg);
-  }
-
-  60%{
-    background-image: url(../../public/assets/mempelai5.jpeg);
-  }
-
-  80%{
-    background-image: url(../../public/assets/mempelai6.jpeg);
-  }
-
-  100%{
-    background-image: url(../../public/assets/mempelai1.jpg);
-  }
-
-  0%{
-    background-image: url(../../public/assets/mempelai2.jpeg);
-  }
-}
-
-.disc {
-  animation: putar 4s linear infinite;
-}
-
-@keyframes putar {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .hover\:bg-black\/50:hover{
