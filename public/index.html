@@ -6,6 +6,96 @@
     <link rel="stylesheet" href="icon/css/all.min.css">
     <link rel="stylesheet" href="css/final.css">
     <title>UNDANGAN ONLINE</title>
+    <style>
+        .d-none{
+    display: none;
+}
+.welcome {
+    background-image: url(assets/mempelai1.jpg);
+}
+
+.sec1 {
+    text-shadow: 2px 2px black;
+}
+.section2{
+    background-image: url(assets/mempelai1.jpg);
+    background-position: center;
+    background-size: cover;
+}
+.wanita {
+    background-image: url(assets/wanita2.jpeg);
+    background-position: center;
+    background-size: cover;
+}
+.pria {
+    background-image: url(assets/pria2.jpeg);
+    background-position: center;
+    background-size: cover;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-out forwards;
+}
+
+.slide {
+    background-image: url(assets/mempelai1.jpg);
+    background-repeat: no-repeat;
+    transition: 1s;
+
+    animation-name: slideshow;
+    animation-direction: alternate-reverse;
+    animation-play-state: running;
+    animation-timing-function: ease-out;
+    animation-duration: 20s;
+    animation-fill-mode: backwards;
+    animation-iteration-count: infinite;
+}
+@keyframes slideshow {
+    0%{
+        background-image: url(assets/mempelai2.jpeg);
+    }
+    20%{
+        background-image: url(assets/mempelai3.jpeg);
+    }
+    40%{
+        background-image: url(assets/mempelai4.jpeg);
+    }
+    60%{
+        background-image: url(assets/mempelai5.jpeg);
+    }
+    80%{
+        background-image: url(assets/mempelai6.jpeg);
+    }
+    100%{
+        background-image: url(assets/mempelai1.jpg);
+    }
+    0%{
+         background-image: url(assets/mempelai2.jpeg);
+    }
+}
+
+.disc {
+    animation: putar 4s linear infinite;
+}
+@keyframes putar {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+    </style>
 </head>
 <body>
     <!-- {{-- MAIN HALAMAN--}} -->
