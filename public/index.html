@@ -395,10 +395,6 @@
 
             document.getElementById('hideButton').addEventListener('click', function() { 
                 // Menambahkan kelas animasi
-                if (history.scrollRestoration) {
-                    history.scrollRestoration = 'manual'; // Nonaktifkan pemulihan posisi scroll otomatis
-                }
-                window.scrollTo(0, 0);
                 container.classList.add('fade-out');
                 song.play();
                 play = true
