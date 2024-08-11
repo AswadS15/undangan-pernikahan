@@ -311,40 +311,6 @@
 
 <!-- {{-- JAVA SCRIPT --}} -->
     <!-- AUTOSCROLL -->
-        <script>
-            // Memastikan halaman mulai dari atas saat dimuat ulang
-            // Paksa scroll ke atas saat halaman dimuat
-
-            // Kecepatan scroll (pixel per interval)
-            const scrollSpeed = 10;
-            let scrollInterval;
-            let isScrolling = true;
-
-            // Fungsi untuk auto scroll
-            function autoScroll() {
-                window.scrollBy(0, scrollSpeed);
-
-                // Mengecek apakah sudah mencapai bagian bawah halaman
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                    clearInterval(scrollInterval);
-                    document.getElementById('toggleScroll').disabled = true; // Disable tombol jika sudah di bagian bawah
-                }
-            }
-
-            // Memulai auto scroll
-            scrollInterval = setInterval(autoScroll, 10);
-
-            // Tombol untuk menghentikan atau melanjutkan scroll
-            const toggleScrollButton = document.getElementById('toggleScroll');
-            toggleScrollButton.addEventListener('click', function() {
-                if (isScrolling) {
-                    clearInterval(scrollInterval); // Hentikan scroll
-                } else {
-                    scrollInterval = setInterval(autoScroll, 10); // Lanjutkan scroll
-                }
-                isScrolling = !isScrolling;
-            });
-        </script>
      <!-- END AUTOSCROLL -->
 
     <!-- {{-- WAKTU PERNIKAHAN --}} -->
