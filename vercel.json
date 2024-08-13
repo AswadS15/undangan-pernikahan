@@ -9,6 +9,15 @@
     {
         "src": "/api/index.php",
         "dest": "/api/index.php"
+    },
+    {
+        "src": "/style.css",
+        "dest": "/public/css/style.css"
+    },
+
+    {
+        "src": "/(.*)",
+        "dest": "/api/index.php"
     }
   ]
 
