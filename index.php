@@ -1,35 +1,90 @@
+<?php
+    include "database.php";
+
+// Jika form disubmit
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Ambil data dari form
+    $nama = $_POST['nama'];
+    $kehadiran = $_POST['kehadiran'];
+    $komen = $_POST['komen'];
+    $waktu = date('Y-m-d H:i:s'); 
+
+    // Buat query untuk memasukkan data ke dalam tabel tamus
+    $sql = "INSERT INTO tamus (nama, kehadiran, komen, created_at) VALUES (?, ?, ?, ?)";
+
+    // Siapkan statement
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameter
+    $stmt->bind_param("ssss", $nama, $kehadiran, $komen, $waktu);
+
+    // Tutup statement
+    $stmt->close();
+}
+
+// Fungsi untuk menghitung waktu yang telah berlalu
+function waktu_yang_lalu($timestamp) {
+    $now = time();
+    $past = strtotime($timestamp);
+    $diff = $now - $past;
+    
+    if ($diff < 60) {
+        return 'baru saja'; // Jika waktu kurang dari 1 menit
+    } elseif ($diff < 3600) {
+        $minutes = round($diff / 60);
+        return $minutes . ' menit yang lalu';
+    } elseif ($diff < 86400) {
+        $hours = round($diff / 3600);
+        return $hours . ' jam yang lalu';
+    } elseif ($diff < 604800) {
+        $days = round($diff / 86400);
+        return $days . ' hari yang lalu';
+    } else {
+        return date('d M Y', $past); // Format default jika lebih dari 1 minggu
+    }
+}
+
+$sql = "SELECT nama, kehadiran, komen, created_at FROM tamus ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+// Cek jika query berhasil
+if (!$result) {
+    die("Query gagal: " . $conn->error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/icon/css/all.min.css">
+    <link rel="stylesheet" href="/public/icon/css/all.min.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="public/css/final.css">
+    <link rel="stylesheet" href="/public/css/final.css">
     <title>UNDANGAN ONLINE</title>
     <style>
         .d-none{
             display: none;
         }
         .welcome {
-            background-image: url(public/assets/mempelai1.jpg);
+            background-image: url(/public/mempelai1.jpg);
         } 
 
         .sec1 {
             text-shadow: 2px 2px black;
         }
         .section2{
-            background-image: url(public/assets/mempelai1.jpg);
+            background-image: url(/public/mempelai1.jpg);
             background-position: center;
             background-size: cover;
         }
         .wanita {
-            background-image: url(public/assets/wanita2.jpeg);
+            background-image: url(/public/wanita2.jpg);
             background-position: center;
             background-size: cover;
         }
         .pria {
-            background-image: url(public/assets/pria2.jpeg);
+            background-image: url(/public/pria2.jpg);
             background-position: center;
             background-size: cover;
         }
@@ -49,7 +104,7 @@
         }
 
         .slide {
-            background-image: url(public/assets/mempelai1jpeg.jpeg);
+            background-image: url(/public/mempelai1jpeg.jpeg);
             background-repeat: no-repeat;
             transition: 1s;
 
@@ -63,25 +118,25 @@
         }
         @keyframes slideshow {
             0%{
-                background-image: url(public/assets/mempelai2.jpeg);
+                background-image: url(/public/mempelai2.jpeg);
             }
             20%{
-                background-image: url(public/assets/mempelai3.jpg);
+                background-image: url(/public/mempelai3.jpg);
             }
             40%{
-                background-image: url(public/assets/mempelai4.jpg);
+                background-image: url(/public/mempelai4.jpg);
             }
             60%{
-                background-image: url(public/assets/mempelai5.jpeg);
+                background-image: url(/public/mempelai5.jpeg);
             }
             80%{
-                background-image: url(public/assets/mempelai6.jpg);
+                background-image: url(/public/mempelai6.jpg);
             }
             100%{
-                background-image: url(public/assets/mempelai1jpeg.jpeg);
+                background-image: url(/public/mempelai1jpeg.jpeg);
             }
             0%{
-                background-image: url(public/assets/mempelai2.jpeg);
+                background-image: url(/public/mempelai2.jpeg);
             }
         }
 
@@ -152,7 +207,7 @@
                     <div class="bg-white/35 backdrop-blur-sm drop-shadow-sm rounded-xl py-5 px-3">
                         <p class="text-sm">Atas Rahmat Allah Yang Maha Kuasa, kami bermaksud mengundang Anda di acara kami. Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga, apabila Bapak/ibu/Saudara/i berkenan hadir dan membarikan doa restu pada
                         </p>
-                        <div class=" w-full h-[500px] rounded-t-[300px] rounded-b-[100px] mx-auto bg-cover bg-center my-10" style="background-image: url(public/assets/mempelai5.jpeg)" >
+                        <div class=" w-full h-[500px] rounded-t-[300px] rounded-b-[100px] mx-auto bg-cover bg-center my-10" style="background-image: url(/public/mempelai5.jpeg)" >
                         </div>
                         <p class="text-sm">Di antara tanda-tanda (kebesaran)-nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tentram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berfikir.
                         </p>
@@ -236,22 +291,22 @@
                 <h3 class="text-center font-cinzel text-2xl font-semibold py-10">Our Gallery</h3>
                 <div class="grid grid-cols-2 gap-3 mt-5 place-items-center">
                     <div class="col-span-2">
-                        <img src="public/assets/mempelai4.jpeg" alt="">
+                        <img src="/public/mempelai4.jpeg" alt="">
                     </div>
                     <div class="col-span-1">
-                        <img src="public/assets/mempelai1jpeg.jpeg" alt="">
+                        <img src="/public/mempelai1jpeg.jpeg" alt="">
                     </div>
                     <div class="col-span-1">
-                        <img src="public/assets/mempelai3.jpeg" alt="">
+                        <img src="/public/mempelai3.jpeg" alt="">
                     </div>
                     <div class="col-span-1">
-                        <img src="public/assets/mempelai5.jpeg" alt="">
+                        <img src="/public/mempelai5.jpeg" alt="">
                     </div>
                     <div class="col-span-1">
-                        <img src="public/assets/mempelai7.jpeg" alt="">
+                        <img src="/public/mempelai7.jpeg" alt="">
                     </div>
                     <div class="col-span-2">
-                        <img src="public/assets/mempelai6.jpeg" alt="">
+                        <img src="/public/mempelai6.jpeg" alt="">
                     </div>
                 </div>
             </section>
@@ -259,8 +314,8 @@
         <!-- SECTION 6 -->
             <section id="maps" class="h-[1000px] text-center relative px-7 text-black/50">
                 <h3 class="text-center font-cinzel text-2xl font-semibold py-10">~ Ucapan Selamat ~</h3>   
-                <div class=" rounded-lg backdrop-blur-lg max-w-lg w-full p-5 border-2 border-black/35">
-                    <form class="max-w-lg mx-auto p-4 bg-white shadow-md rounded">
+                <div class=" rounded-lg backdrop-blur-lg max-w-lg w-full p-5 border-2 border-black/35 mx-auto">
+                    <form action="index.php" method="POST" class="max-w-lg mx-auto p-4 bg-white shadow-md rounded">
                         <div class="mb-4">
                             <label for="nama" class="block text-sm font-medium text-gray-700">Nama:</label>
                             <input type="text" id="nama" name="nama" required
@@ -288,18 +343,40 @@
                             Kirim Ucapan
                         </button>
                     </form>                    
-                    <div id="isikomen" class="w-full h-[300px]  mt-10 rounded-lg border-2 border-black/35 px-2 py-4 overflow-y-scroll">
+                    <div id="isikomen" class="w-full h-[300px] mt-10 rounded-lg border-2 border-black/35 px-2 py-4 overflow-y-scroll">
                         <div class="flex flex-col gap-2">
                             <div class="w-full">
-                                <div class="flex gap-3 pb-5">
-                                    <div class="flex flex-col justify-center">
-                                        <span><i class="fa-solid fa-user text-3xl"></i></span>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-sm text-left"></h3>
-                                        <p class="text-xs text-left"></p>
-                                    </div>
-                                </div>
+                                <?php
+                                // Tampilkan data dari hasil query
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $nama = htmlspecialchars($row['nama']);
+                                        $kehadiran = htmlspecialchars($row['kehadiran']);
+                                        $komen = htmlspecialchars($row['komen']);
+                                        $created_at = $row['created_at'];
+
+                                        echo '<div class="flex gap-3">';
+                                        echo '    <div class="flex flex-col">';
+                                        echo '        <span><i class="fa-solid fa-user text-3xl"></i></span>';
+                                        echo '    </div>';
+                                        echo '    <div class="w-full px-5">';
+                                        echo '        <div class="flex gap-5 items-center justify-between">';
+                                        echo '          <h3 class="font-bold text-sm text-left">' . $nama . '</h3>';
+                                        echo '          <p class="text-xs text-left">' . $kehadiran . '</p>';
+                                        echo '        </div>';
+                                        echo '        <p class="text-sm text-left text-black">' . $komen . '</p>';
+                                        echo '        <p class="text-xs text-left text-black/30 pb-2">' . waktu_yang_lalu($created_at) . '</p>';
+                                        echo '    </div>';
+                                        echo '</div>';
+                                        echo '<hr>';
+                                    }
+                                } else {
+                                    echo '<p class="text-center">Tidak ada data</p>';
+                                }
+
+                                // Tutup koneksi
+                                $conn->close();
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -326,7 +403,7 @@
             </div>
             <div id="pembungkusAudio" class="flex justify-center items-center">
                 <audio id="song" autoplay loop>
-                    <source src="public/assets/audio/music.mp3" type="audio/mp3">
+                    <source src="/public/audio/music.mp3" type="audio/mp3">
                 </audio>
                 <button><i id="disc" class="disc fa-regular fa-circle-pause"></i></button>
                 <i class=""></i>

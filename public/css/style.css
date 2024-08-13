@@ -1014,8 +1014,8 @@ video {
   padding-bottom: 2.5rem;
 }
 
-.pb-5{
-  padding-bottom: 1.25rem;
+.pb-2{
+  padding-bottom: 0.5rem;
 }
 
 .pt-2{
@@ -1103,6 +1103,15 @@ video {
 
 .leading-none{
   line-height: 1;
+}
+
+.text-black{
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-black\/30{
+  color: rgb(0 0 0 / 0.3);
 }
 
 .text-black\/50{
